@@ -53,9 +53,9 @@ namespace ZZAPP.Views
         private async void GetCoupon()
         {
             // Retrieve the coupon from the app
-            _Model.IsProceZZing = true;
+            _Model.IsProcessing = true;
             var coupon = await CouponService.GetMemberCoupon(GlobalVar.MemberCode);
-            _Model.IsProceZZing = false;
+            _Model.IsProcessing = false;
            
             if (coupon != null)
             {
