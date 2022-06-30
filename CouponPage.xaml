@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ZZAPP;assembly=ZZAPP"
+             xmlns:views="clr-namespace:ZZAPP.Views;assembly=ZZAPP"
+             NavigationPage.HasNavigationBar="false"
+             NavigationPage.HasBackButton="false"
+             x:Class="ZZAPP.Views.CouponPage">
+
+    <Grid VerticalOptions="FillAndExpand"
+          HorizontalOptions="FillAndExpand">
+
+        <Image x:Name="BgImage"
+               Aspect="AspectFill"
+               Source="{Binding BgImageSource}"/>
+
+        <Grid RowSpacing="0" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- header -->
+            <views:Header Grid.Row="0" />
+
+            <ContentView Grid.Row="1">
+                <ScrollView>
+                    <StackLayout Spacing="0">
+
+                        <!-- Title -->
+                        <views:TitleBar Text="{Binding PageTitle}" />
+
+                        <!-- Coupon -->
+                        <StackLayout x:Name="detail"
+                                     Margin="0,5,0,10">
+
+                            <!-- Content will be included -->
+
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            </ContentView>
+
+            <!-- Footer -->
+            <views:Futter Grid.Row="2" />
+
+        </Grid>
+
+        <!-- Loading screen -->
+        <views:LoadingIndicator IsVisible="{Binding IsProcessing}" />
+
+    </Grid>
+</ContentPage>
