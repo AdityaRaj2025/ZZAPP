@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xamarin.Forms;
@@ -16,7 +16,7 @@ using ZZAPP.Services;
 namespace ZZAPP.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial claZZ CouponPage : ContentPage
+    public partial class CouponPage : ContentPage
     {
         private CouponViewModel _Model;
 
@@ -26,7 +26,7 @@ namespace ZZAPP.Views
         public static string[] CouponBarcode = new string[1];
         public static bool[] CouponFreeUse = new bool[1];
         public static string[] CouponNote = new string[1];
-        public static string[] CouponImageAddreZZ = new string[1];
+        public static string[] CouponImageAddress = new string[1];
 
         public static ImageSource[] CouponImageSource;
 
@@ -43,7 +43,7 @@ namespace ZZAPP.Views
             GetCoupon();
         }
 
-        protected override bool OnBackButtonPreZZed()
+        protected override bool OnBackButtonPressed()
         {
             
             _Model.CloseAlert();
