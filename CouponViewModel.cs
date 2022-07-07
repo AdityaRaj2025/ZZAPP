@@ -45,7 +45,6 @@ namespace ZZAPP.ViewModels
         {
             try
             {
-
                 // Retrieve the coupon from the app
                 IsBusy = true;
                 var coupon = await CouponService.GetMemberCoupon(GlobalVar.MemberCode);
@@ -54,13 +53,7 @@ namespace ZZAPP.ViewModels
 
                 if (coupon != null)
                 {
-                    ErrorMessage = null;
-                    StackLayout CouponStackLayout;
-                    Label CouponNameLabel;
-                    BoxView Line;
-                    Image CouponImage;
-                    Label CouponLimitLabel;
-       
+                   
                     if (coupon.Length >= 1)
                     {
                         for (int i = 0; i < coupon.Length; i++)
@@ -90,103 +83,20 @@ namespace ZZAPP.ViewModels
                             CouponBarcode[i] = coupon[i].Barcode;                         
                             CouponFreeUse[i] = coupon[i].FreeUse;
                             CouponNote[i] = coupon[i].Note;
-
-                            // Screen Display Creation
-                            CouponStackLayout = new StackLayout
-                            {
-                                HorizontalOptions = LayoutOptions.FillAndExpand,
-                                Margin = new Thickness(5, 5, 5, 0)
-                            };
-                            CouponFrame[i] = new Frame
-                            {
-                                Content = CouponStackLayout,
-                                HorizontalOptions = LayoutOptions.FillAndExpand,
-                                Margin = new Thickness(20, 10),
-                                Padding = new Thickness(20, 10),
-                                BorderColor = MainColor,
-                                BackgroundColor = Color.White,
-                                CornerRadius = 10,
-                                HasShadow = true
-                            };
-                            detail.Children.Add(CouponFrame[i]);
-
-                            CouponNameLabel = new Label
-                            {
-                                Text = CouponName[i],
-                                TextColor = MainColor,
-                                FontSize = FontSizeX3Large,
-                                FontAttributes = FontAttributes.Bold,
-                                HorizontalOptions = LayoutOptions.Center
-                            };
-                            CouponStackLayout.Children.Add(CouponNameLabel);
-
-                            Line = new BoxView
-                            {
-                                Color = MainColor,
-                                HeightRequest = 1,
-                                HorizontalOptions = LayoutOptions.FillAndExpand
-                            };
-                            CouponStackLayout.Children.Add(Line);
-
-                            CouponImageAddress[i] = coupon[i].ImageUrl ?? "";
-                            if (coupon[i].ImageUrl != "")
-                            {
-                                CouponImageAddress[i] = GlobalVar.WebServerShortAddress + CouponImageAddress[i];
-                                CouponImage = new Image
-                                {
-                                    Source = ImageSource.FromUri(new Uri(CouponImageAddress[i])),
-                                    HorizontalOptions = LayoutOptions.FillAndExpand,
-                                    VerticalOptions = LayoutOptions.StartAndExpand
-                                };
-                                CouponStackLayout.Children.Add(CouponImage);
-                            }
-
-                            CouponLimitLabel = new Label
-                            {
-                                Text = CouponLimit[i],
-                                TextColor = Color.Black,
-                                Margin = new Thickness(0, 10, 0, 0),
-                                FontSize = FontSizeXLarge,
-                                HorizontalOptions = LayoutOptions.Center
-                            };
-                            CouponStackLayout.Children.Add(CouponLimitLabel);
-
-                            // Operation when pressed
-                            var tgr = new TapGestureRecognizer();
-                            tgr.Tapped += (sender, e) => Handle_OnClickedCoupon(sender, e);
-                            CouponFrame[i].GestureRecognizers.Add(tgr);
+                            CouponImageAddress[i] = coupon[i].ImageUrl = GlobalVar.WebServerShortAddress + coupon[i].ImageUrl;                           
                         }
                     }
                     else
                     {
                         // No coupon
-                        CouponNameLabel = new Label
-                        {
-                            Text = AppResources.CouponNotExists,
-                            TextColor = Color.Black,
-                            FontSize = FontSizeXLarge,
-                            Margin = new Thickness(20, 5, 20, 0)
-                        };
-                        detail.Children.Add(CouponNameLabel);
+                        await Application.Current.MainPage.DisplayAlert(AppResources.HttpErrorAlertTitle, AppResources.CouponNotExists, AppResources.OK);
                     }
                 }
                 else
-                {
-                    // communication error
-                    //Label ErrorLabel = new Label
-                    //{
-                    //    Text = "Unable to retrieve coupon",
-                    //    FontSize = FontSizeXLarge,
-                    //    TextColor = Color.Red,
-                    //    HorizontalOptions = LayoutOptions.CenterAndExpand,
-                    //    Margin = new Thickness(0, 5, 0, 0)
-                    //};
-                    //detail.Children.Add(ErrorLabel);
-
+                {                    
                     ErrorMessage = "Unable to retrieve coupon";
                     CurrentPage = BaseViewModel.PAGE_NONE;
                     await Application.Current.MainPage.DisplayAlert(AppResources.HttpErrorAlertTitle, AppResources.HttpErrorAlertText, AppResources.OK);
-
                 }
             }
             catch(Exception)
