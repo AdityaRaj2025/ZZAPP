@@ -20,6 +20,14 @@ namespace ZZAPP.ViewModels
         public static ImageSource[] CouponImageSource;
 
         protected IMemberService CouponService => DependencyService.Get<IMemberService>();
+        
+        public CouponViewModel(INavigation nav)
+        {
+            _Nav = nav;
+
+            PageTitle = AppResources.CouponTitle;
+            GetCoupon();
+        }
 
         public CouponInfo[] coupon
         {
@@ -33,20 +41,13 @@ namespace ZZAPP.ViewModels
             }
         }
 
-        public CouponViewModel(INavigation nav)
-        {
-            _Nav = nav;
-
-            PageTitle = AppResources.CouponTitle;
-            GetCoupon();
-        }
-
         private async void GetCoupon()
         {
             try
             {
-                // Retrieve the coupon from the app
+              
                 IsBusy = true;
+                // Retrieve the coupon details from the server
                 var coupon = await CouponService.GetMemberCoupon(GlobalVar.MemberCode);
 
                 IsBusy = false;
@@ -61,7 +62,6 @@ namespace ZZAPP.ViewModels
                            // Increase array
                             if (i != 0)
                             {
-                                Array.Resize(ref CouponFrame, CouponFrame.Length + 1);
                                 Array.Resize(ref CouponName, CouponName.Length + 1);
                                 Array.Resize(ref CouponLimit, CouponLimit.Length + 1);
                                 Array.Resize(ref CouponBarcode, CouponBarcode.Length + 1);
