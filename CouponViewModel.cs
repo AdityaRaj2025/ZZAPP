@@ -21,12 +21,15 @@ namespace ZZAPP.ViewModels
 
         protected IMemberService CouponService => DependencyService.Get<IMemberService>();
         
+        public ICommand FrameTapCommand { get; }
+        
         public CouponViewModel(INavigation nav)
         {
             _Nav = nav;
 
             PageTitle = AppResources.CouponTitle;
             GetCoupon();
+            FrameTapCommand = new Command(FrameListOnTap);
         }
 
         public CouponInfo[] coupon
@@ -41,6 +44,11 @@ namespace ZZAPP.ViewModels
             }
         }
 
+        private void FrameListOnTap()
+        {
+            _Nav.PushAsync(new NotificationNotify(), false);
+        }
+        
         private async void GetCoupon()
         {
             try
