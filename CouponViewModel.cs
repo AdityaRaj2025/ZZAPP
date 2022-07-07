@@ -20,8 +20,7 @@ namespace ZZAPP.ViewModels
         public static ImageSource[] CouponImageSource;
 
         protected IMemberService CouponService => DependencyService.Get<IMemberService>();
-        
-        public ICommand FrameTapCommand { get; }
+        public Command LoadElements { get; set; }
         
         public CouponViewModel(INavigation nav)
         {
@@ -29,7 +28,23 @@ namespace ZZAPP.ViewModels
 
             PageTitle = AppResources.CouponTitle;
             GetCoupon();
-            FrameTapCommand = new Command(FrameListOnTap);
+            LoadElements = new Command(execute: async () => await ExecuteElements());
+        }
+        
+        async Task ExecuteElements()
+        {
+            try
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new NotificationNotify());
+              //await Application.Current.MainPage.Navigation.PushAsync(new CouponDetailPage(CouponName, CouponImageAddress, CouponLimit, CouponNote, CouponFreeUse, CouponBarcode));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+            }
         }
 
         public CouponInfo[] coupon
@@ -43,12 +58,7 @@ namespace ZZAPP.ViewModels
                 SetProperty(ref _CouponInfo, value);
             }
         }
-
-        private void FrameListOnTap()
-        {
-            _Nav.PushAsync(new NotificationNotify(), false);
-        }
-        
+   
         private async void GetCoupon()
         {
             try
