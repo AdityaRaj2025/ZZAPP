@@ -5,6 +5,7 @@
              xmlns:views="clr-namespace:ZZAPP.Views;assembly=ZZAPP"
              NavigationPage.HasNavigationBar="false"
              NavigationPage.HasBackButton="false"
+             x:Name="CouponDetailPage"
              x:Class="ZZAPP.Views.CouponPage">
 
     <Grid VerticalOptions="FillAndExpand"
@@ -43,10 +44,12 @@
                                                 <Label Text="{Binding CouponName}" TextColor="Red" FontSize="Large"  HorizontalOptions="Center" FontAttributes="Bold"/>
                                                 <BoxView  HeightRequest ="1" Color="Red" HorizontalOptions = "FillAndExpand" />
                                                 <Image Source="{Binding ImageUrl }" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" />
+
+
                                                 <Label TextColor="Black" FontSize="Large" HorizontalOptions="Center">
                                                     <Label.FormattedText>
                                                         <FormattedString>
-                                                            <Span Text="Expiry Date: "/>
+                                                            <Span Text="有効期限: "/>
                                                             <Span Text="{Binding ExpirationDate, StringFormat='{}{0:yyyy/MM/dd}'}"/>
                                                             <Span Text=" まで"/>
                                                         </FormattedString>
@@ -54,7 +57,7 @@
                                                 </Label>
                                             </StackLayout>
                                             <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer  Command="{Binding FrameTapCommand}" />
+                                                <TapGestureRecognizer  Command="{Binding Source={x:Reference CouponDetailPage},Path=BindingContext.LoadElements}" />
                                             </Frame.GestureRecognizers>
                                         </Frame>
                                     </DataTemplate>
