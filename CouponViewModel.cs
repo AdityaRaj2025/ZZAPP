@@ -35,8 +35,10 @@ namespace ZZAPP.ViewModels
         {
             try
             {
-                await Application.Current.MainPage.Navigation.PushAsync(new NotificationNotify());
-              //await Application.Current.MainPage.Navigation.PushAsync(new CouponDetailPage(CouponName, CouponImageAddress, CouponLimit, CouponNote, CouponFreeUse, CouponBarcode));
+                for (int i = 0; i < Coupons.Length; i++)
+                {                   
+                        await Application.Current.MainPage.Navigation.PushAsync(new CouponDetailPage(CouponName[i], CouponImageAddress[i], CouponLimit[i], CouponNote[i], CouponFreeUse[i], CouponBarcode[i]));                    
+                }
             }
             catch (Exception ex)
             {
