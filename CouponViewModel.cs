@@ -38,7 +38,10 @@ namespace ZZAPP.ViewModels
                 var coupon = await CouponService.GetMemberCoupon(GlobalVar.MemberCode);
 
                 IsBusy = false;
-
+                    foreach(CouponInfo item in coupon)
+                    {
+                        item.ImageUrl = GlobalVar.WebServerShortAddress + item.ImageUrl;
+                    }
                 Coupons = coupon;
             }
             catch(Exception)
