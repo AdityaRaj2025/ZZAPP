@@ -7,17 +7,16 @@ namespace ZZAPP.ViewModels
 {
     class CouponViewModel : BaseViewModel
     { 
-        private CouponInfo[] _CouponInfo;
-        
-        protected IMemberService CouponService => DependencyService.Get<IMemberService>();
-        
         public CouponViewModel(INavigation nav)
         {
             PageTitle = AppResources.CouponTitle;
-            GetCoupon();           
+           
+            GetCoupon();
+           
         }
-        
-        public CouponInfo[] coupon
+
+        private CouponInfo[] _CouponInfo;
+        public CouponInfo[] Coupons
         {
             get
             {
@@ -28,6 +27,8 @@ namespace ZZAPP.ViewModels
                 SetProperty(ref _CouponInfo, value);
             }
         }
+
+        protected IMemberService CouponService => DependencyService.Get<IMemberService>();
    
         private async void GetCoupon()
         {
@@ -38,10 +39,27 @@ namespace ZZAPP.ViewModels
                 var coupon = await CouponService.GetMemberCoupon(GlobalVar.MemberCode);
 
                 IsBusy = false;
-                    foreach(CouponInfo item in coupon)
+                 if(coupon != null)
+                {
+                    if (coupon.Length >= 1)
                     {
-                        item.ImageUrl = GlobalVar.WebServerShortAddress + item.ImageUrl;
+                        foreach (CouponInfo item in coupon)
+                        {
+                            item.ImageUrl = GlobalVar.WebServerShortAddress + item.ImageUrl;
+                        }
                     }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert(AppResources.HttpErrorAlertTitle, AppResources.CouponNotExists, AppResources.OK);
+                        ErrorMessage = AppResources.CouponNotExists;
+                    }
+                }
+                else
+                {
+                    ErrorMessage = "Unable to get coupon";
+                    CurrentPage = BaseViewModel.PAGE_NONE;
+                    await Application.Current.MainPage.DisplayAlert(AppResources.HttpErrorAlertTitle, AppResources.HttpErrorAlertText, AppResources.OK); 
+                }  
                 Coupons = coupon;
             }
             catch(Exception)
