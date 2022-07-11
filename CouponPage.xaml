@@ -36,16 +36,19 @@
                         <StackLayout x:Name="detail"
                                      Margin="0,5,0,10">
 
-                          <StackLayout BindableLayout.ItemsSource="{Binding Coupons}">
-                                <BindableLayout.ItemTemplate>
-                                    <DataTemplate>
-                                        <Frame x:Name="frame" HorizontalOptions="FillAndExpand" Margin="20,10" Padding="20,10" BorderColor="Red" BackgroundColor="White" CornerRadius="10" HasShadow="True">
-                                            <StackLayout>
+                          <ListView x:Name="MainListView" ItemsSource="{Binding Coupons}"
+                                    HasUnevenRows="True"  
+                                         ItemTapped="MainListView_ItemTapped" >  
+                                   <ListView.ItemTemplate>  
+                                       <DataTemplate>  
+                                           <ViewCell>  
+                                                <StackLayout Orientation="Vertical">  
+                                                   <Frame x:Name="frame" HorizontalOptions="FillAndExpand" Margin="20,10" Padding="20,10" BorderColor="Red" BackgroundColor="White" CornerRadius="5" HasShadow="True">
+                                                <StackLayout>
                                                 <Label Text="{Binding CouponName}" TextColor="Red" FontSize="Large"  HorizontalOptions="Center" FontAttributes="Bold"/>
                                                 <BoxView  HeightRequest ="1" Color="Red" HorizontalOptions = "FillAndExpand" />
-                                                <Image Source="{Binding ImageUrl }" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" />
-
-
+                                                <Image Source="{Binding ImageUrl }" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" \>
+                                                          
                                                 <Label TextColor="Black" FontSize="Large" HorizontalOptions="Center">
                                                     <Label.FormattedText>
                                                         <FormattedString>
@@ -56,14 +59,13 @@
                                                     </Label.FormattedText>
                                                 </Label>
                                             </StackLayout>
-                                            <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer  Command="{Binding Source={x:Reference CouponDetailPage},Path=BindingContext.LoadElements}" />
-                                            </Frame.GestureRecognizers>
+                                            
                                         </Frame>
-                                    </DataTemplate>
-                                </BindableLayout.ItemTemplate>
-                            </StackLayout>
-
+                                               </StackLayout>  
+                                           </ViewCell>  
+                                           </DataTemplate>  
+                                   </ListView.ItemTemplate>  
+                                </ListView>  
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>
