@@ -92,7 +92,7 @@ namespace ZZAPP.ViewModels
             set
             {
                 SetProperty(ref _ErrorMessage, value);
-                OnPropertyChanged(nameof(ErrorMessageVisible));
+                OnPropertyChanged(nameof(ErrorMessage));
             }
         }
 
