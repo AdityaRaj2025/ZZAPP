@@ -19,37 +19,28 @@ namespace ZZAPP.Views
     public partial class CouponPage : ContentPage
     {
         private CouponViewModel _Model;
-
-        
-      
-
         public CouponPage()
         {
             InitializeComponent();
 
             _Model = new CouponViewModel(Navigation);
             BindingContext = _Model;
-           
-            GetCoupon();
         }
 
         protected override bool OnBackButtonPressed()
         {
-            
             _Model.CloseAlert();
             return true;
         }
         
-        private async void Handle_OnClickedCoupon(object sender, EventArgs args)
+        async private void MainListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            for (int i = 0; i < CouponFrame.Length; i++)
-            {
-                if (object.ReferenceEquals(sender, CouponFrame[i]))
-                {
-                    await Navigation.PushAsync(new CouponDetailPage(CouponName[i], CouponImageAddreZZ[i], CouponLimit[i], CouponNote[i], CouponFreeUse[i], CouponBarcode[i]), false);
-                    break;
-                }
-            }
+            var Selected = e.Item as CouponInfo;
+
+            await Application.Current.MainPage.Navigation.PushAsync(new CouponDetailPage(Selected.CouponName, Selected.ImageUrl, Selected.ExpirationDate.ToString(), Selected.Note, Selected.FreeUse, Selected.Barcode), false);
+
+            ((ListView)sender).SelectedItem = null;
+
         }
     }
 }
