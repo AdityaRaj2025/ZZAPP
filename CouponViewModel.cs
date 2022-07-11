@@ -69,7 +69,19 @@ namespace ZZAPP.ViewModels
             }
         }
 
-        public bool ErrorMessageVisible { get { return ErrorMessage != null; } }
+        public bool _ErrorMessageVisible;
+        public bool ErrorMessageVisible 
+        {
+            get
+            {
+                return ErrorMessage != null;
+            }
+            set
+            {
+                SetProperty(ref _ErrorMessageVisible, value);
+                OnPropertyChanged(nameof(ErrorMessageVisible));
+            }
+        }
         public string _ErrorMessage;
         public string ErrorMessage
         {
