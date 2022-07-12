@@ -40,7 +40,8 @@ namespace ZZAPP.ViewModels
 
                 IsBusy = false;
                  if(coupon != null)
-                {
+                 {
+                    ErrorMessage = null;
                     if (coupon.Length >= 1)
                     {
                         foreach (CouponInfo item in coupon)
@@ -50,8 +51,8 @@ namespace ZZAPP.ViewModels
                     }
                     else
                     {
-                        await Application.Current.MainPage.DisplayAlert(AppResources.HttpErrorAlertTitle, AppResources.CouponNotExists, AppResources.OK);
-                        ErrorMessage = AppResources.CouponNotExists;
+                        await Application.Current.MainPage.DisplayAlert("No Coupon" ,AppResources.CouponNotExists, AppResources.OK);
+                        ErrorMessage = AppResources.CouponNotExists;   
                     }
                 }
                 else
@@ -68,20 +69,8 @@ namespace ZZAPP.ViewModels
                 ErrorMessage = null;
             }
         }
-
-        public bool _ErrorMessageVisible;
-        public bool ErrorMessageVisible 
-        {
-            get
-            {
-                return ErrorMessage != null;
-            }
-            set
-            {
-                SetProperty(ref _ErrorMessageVisible, value);
-                OnPropertyChanged(nameof(ErrorMessageVisible));
-            }
-        }
+        
+        public bool ErrorMessageVisible { get { return ErrorMessage != null; } }
         public string _ErrorMessage;
         public string ErrorMessage
         {
@@ -92,9 +81,10 @@ namespace ZZAPP.ViewModels
             set
             {
                 SetProperty(ref _ErrorMessage, value);
-                OnPropertyChanged(nameof(ErrorMessage));
+                OnPropertyChanged(nameof(ErrorMessageVisible));
             }
         }
+       
 
         private bool _Processing;
         public bool IsProcessing
