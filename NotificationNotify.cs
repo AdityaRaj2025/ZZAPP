@@ -10,7 +10,7 @@ void OnScheduleClick(object sender, EventArgs e)
         ReturningData = "Dummy data", // Returning data when tapped on notification.
         Schedule =
         {
-            NotifyTime = ReservDate.AddHours(-1) 
+            NotifyTime = GlobalVar.ReservDate.AddHours(-1) 
         }
     };
     NotificationCenter.Current.Show(notification);
