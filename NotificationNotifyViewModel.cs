@@ -36,7 +36,7 @@ private async void Confirm()
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("予約確定エラー", "恐れ入りますが、もう一度操作してください。", "確認");
+               
                 await _Nav.PopAsync();
             }
 
