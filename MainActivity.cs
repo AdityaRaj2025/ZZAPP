@@ -19,3 +19,8 @@
 
             NotificationCenter.NotifyNotificationTapped(Intent);
         }
+
+ protected override void OnNewIntent(Intent intent) 
+        { 
+            NotificationCenter.NotifyNotificationTapped(intent); base.OnNewIntent(intent);
+        }
