@@ -13,7 +13,7 @@ public App()
                 GlobalVar.MainColor = Xamarin.Forms.Color.FromHex(obj.MainColor);
                 GlobalVar.AccentColor = Xamarin.Forms.Color.FromHex(obj.AccentColor);
          
-            NotificationCenter.Current.NotificationTapped += OnLocalNotificationTapped;
+             NotificationCenter.Current.NotificationTapped += OnLocalNotificationTapped;
             
             MainPage = new NavigationPage(new MainPage());
             MainPage.BackgroundColor = GlobalVar.BackgroundColor;
