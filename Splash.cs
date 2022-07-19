@@ -14,7 +14,7 @@ namespace ZZAPP.Droid
             mainIntent.SetFlags(ActivityFlags.SingleTop);
             if (!string.IsNullOrWhiteSpace(data))
             {
-                mainIntent.PutExtra((NotificationCenter.ReturnRequest, data));
+                mainIntent.PutExtra(NotificationCenter.ReturnRequest, data);
             }
 
             StartActivity(mainIntent);
