@@ -19,15 +19,5 @@ namespace ZZAPP.Droid
 
             StartActivity(mainIntent);
         }
-        
-        protected override void OnResume()
-        {
-            base.OnResume();
-
-            Task.Run(() =>
-            {
-                StartActivity(new Intent(Application.Context, typeof(MainActivity)));
-            });
-        }
     }
 }
