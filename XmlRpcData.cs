@@ -10,7 +10,7 @@ namespace SSAPP.XmlRpc
         public abstract string Value { get; }
 
         /// <summary>
-        /// 親のvalueノードに対して書き込む
+        /// Writes to the parent value node
         /// </summary>
         /// <param name="doc"></param>
         /// <param name="parent">valueノード</param>
@@ -25,7 +25,7 @@ namespace SSAPP.XmlRpc
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="node">値のノード（valueの子）</param>
+        /// <param name="node">Value Node（valueの子）</param>
         /// <remarks></remarks>
         public virtual void ReadFrom(XmlNode node)
         {
@@ -53,7 +53,7 @@ namespace SSAPP.XmlRpc
             }
         }
 
-        // <value>のノードに含まれるデータをXmlRpcDataにして返す
+        // Return the data contained in the <value> node as XmlRpcData
         public static XmlRpcData ReadValue(XmlNode node)
         {
             var data = node.FirstChild;
