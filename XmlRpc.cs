@@ -51,7 +51,7 @@ namespace SSAPP.XmlRpc
             }
             catch (Exception ex)
             {
-                throw new XmlRpcException("リクエストの作成で例外が発生しました。(XmlRpc.Execute/Gen)", ex);
+                throw new XmlRpcException("An exception occurred in the creation of the request. (XmlRpc.Execute/Gen)", ex);
             }
 
             try
@@ -60,11 +60,11 @@ namespace SSAPP.XmlRpc
                 AsyncObject ao = new AsyncObject(req, sendbuf);
                 var ar = req.BeginGetRequestStream(WriteAsync, ao);
                 if (!ar.AsyncWaitHandle.WaitOne(timeout, false))
-                    throw new XmlRpcException("リクエストの送信がタイムアウトしました。");
+                    throw new XmlRpcException("Request transmission timed out.");
                 if (!ao.Finished.WaitOne(timeout, false))
-                    throw new XmlRpcException("リクエストデータの書き込みがタイムアウトしました。");
+                    throw new XmlRpcException("Request data write timed out.");
                 if (ao.Exception != null)
-                    throw new XmlRpcException("リクエストの送信で例外が発生しました。(XmlRpc.Execute/Write)", ao.Exception);
+                    throw new XmlRpcException("An exception occurred in sending the request. (XmlRpc.Execute/Write)", ao.Exception);
             }
             catch (XmlRpcException _ex)
             {
@@ -73,7 +73,7 @@ namespace SSAPP.XmlRpc
             }
             catch (Exception ex)
             {
-                throw new XmlRpcException("リクエストの送信で例外が発生しました。(XmlRpc.Execute/Req)", ex);
+                throw new XmlRpcException("An exception occurred in sending the request. (XmlRpc.Execute/Req)", ex);
             }
 
             byte[] recvbuf;
@@ -82,9 +82,9 @@ namespace SSAPP.XmlRpc
                 AsyncObject ao = new AsyncObject(req);
                 var ar = req.BeginGetResponse(ReadAsync, ao);
                 if (!ao.Finished.WaitOne(timeout, false))
-                    throw new XmlRpcException("レスポンスの受信がタイムアウトしました。");
+                    throw new XmlRpcException("Receipt of response timed out.");
                 if (ao.Exception != null)
-                    throw new XmlRpcException("レスポンスの受信で例外が発生しました。(XmlRpc.Execute/Read)", ao.Exception);
+                    throw new XmlRpcException("An exception occurred in receiving the response.(XmlRpc.Execute/Read)", ao.Exception);
                 recvbuf = ao.Data;
                 Console.WriteLine("Show the value of recvbuf ####################################", "\n");
                 Console.WriteLine(Encoding.UTF8.GetString(recvbuf));
@@ -97,7 +97,7 @@ namespace SSAPP.XmlRpc
             }
             catch (Exception ex)
             {
-                throw new XmlRpcException("レスポンスの受信で例外が発生しました。(XmlRpc.Execute/Res)", ex);
+                throw new XmlRpcException("An exception occurred in receiving the response.(XmlRpc.Execute/Res)", ex);
             }
 
             try
@@ -111,7 +111,7 @@ namespace SSAPP.XmlRpc
             }
             catch (Exception ex)
             {
-                throw new XmlRpcException("レスポンスの処理で例外が発生しました。(XmlRpc.Execute/Parse)", ex);
+                throw new XmlRpcException("An exception occurred in processing the response.(XmlRpc.Execute/Parse)", ex);
             }
         }
 
