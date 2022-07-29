@@ -10,7 +10,11 @@ grid.Children.Add(browser);
 //This is written in XAML Page.
 <Grid VerticalOptions="FillAndExpand"
           HorizontalOptions="FillAndExpand">
-
+    <Grid.RowDefinitions>
+        <RowDefinition Height="1*" />
+        <RowDefinition Height="1*"/>
+    <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
         <Image x:Name="BgImage"
                Aspect="AspectFill"
                Source="{Binding BgImageSource}"/>
@@ -92,12 +96,11 @@ grid.Children.Add(browser);
                 </ScrollView>
             </ContentView>
 
+        </Grid>
+        <WebView x:Name="webview" Grid.Row="1" BackgroundColor="DeepPink" Source="https://github.com/AdityaRaj2025/ZZAPP/blob/main/Demo.cs"/>
             <!-- footer -->
             <views:Futter Grid.Row="2" />
-
-        </Grid>
-
         <!-- Loading screen -->
-        <views:LoadingIndicator IsVisible="{Binding IsProcessing}" />
+         <views:LoadingIndicator IsVisible="{Binding IsProcessing}" Grid.Row="2" />
 
     </Grid>
