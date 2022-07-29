@@ -101,29 +101,3 @@ grid.Children.Add(browser);
         <views:LoadingIndicator IsVisible="{Binding IsProcessing}" />
 
     </Grid>
-    
-     
-      //LoadingIndicator Class
-    public partial class LoadingIndicator : ContentView
-    {
-        public new bool IsVisible
-        {
-            get { return (bool)GetValue(IsVisibleProperty); }
-            set { SetValue(IsVisibleProperty, value); }
-        }
-
-        public static new readonly BindableProperty IsVisibleProperty =
-            BindableProperty.Create("IsVisible", typeof(bool), typeof(LoadingIndicator), false,
-                propertyChanged: (b, o, n) => { ((LoadingIndicator)b).ContentView.IsVisible = (bool)n;
-                                                ((LoadingIndicator)b).Indicator.IsRunning = (bool)n; });
-
-        public LoadingIndicator()
-        {
-            InitializeComponent();
-
-            
-            IsVisible = true;
-            IsVisible = false;
-
-            Txt.Text = AppResources.LoadingLabel;
-        }
