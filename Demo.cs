@@ -86,12 +86,7 @@ grid.Children.Add(browser);
                             </Grid>
 
                         </StackLayout>
-                        <Grid >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid x:Name="grid" BackgroundColor="Red"  />
-                        </Grid>
+                        
                     </StackLayout>
                 </ScrollView>
             </ContentView>
