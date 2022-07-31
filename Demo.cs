@@ -99,3 +99,28 @@ grid.Children.Add(browser);
          <views:LoadingIndicator IsVisible="{Binding IsProcessing}" Grid.Row="2" />
 
     </Grid>
+    
+             //Update this
+     </StackLayout>
+
+                         
+                      
+                  <WebView Grid.Row="0" x:Name="browser"  HeightRequest="500"/>
+        
+    
+                    </StackLayout>
+                </ScrollView>        
+                
+                      if (url == "")
+                {
+                    browser.IsVisible = false;
+                    //height.Height = 0;
+                }
+                else
+                {
+                    
+                    browser.Source=url;
+                }
+
+             
+             
