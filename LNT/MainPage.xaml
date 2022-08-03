@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LNT.MainPage" NavigationPage.HasNavigationBar="True">
+
+        <StackLayout>
+            <StackLayout >
+                <Label Text="Be Happy" TextColor="Red" HorizontalOptions="Center" VerticalOptions="Start" />
+                <Label Text="Schedule a local notification for in 10 seconds time." TextColor="Red" HorizontalOptions="Center" VerticalOptions="Start" />
+                <Button Text="Create Notification" HorizontalOptions="Center" VerticalOptions="Start" Clicked="OnScheduleClick" />
+                <Label Text="Be Happy" TextColor="Red" HorizontalOptions="Center" VerticalOptions="Start" />
+                <Label Text="Schedule a local notification for in 10 seconds time." TextColor="Red" HorizontalOptions="Center" VerticalOptions="Start" />
+                <Button Text="Create Notification" HorizontalOptions="Center" VerticalOptions="Start" Clicked="OnScheduleClick" />
+                <Label Text="Be Happy" TextColor="Red" HorizontalOptions="Center" VerticalOptions="Start" />
+                <Label Text="Schedule a local notification for in 10 seconds time." TextColor="Red" HorizontalOptions="Center" VerticalOptions="Start" />
+                <Button Text="Create Notification" HorizontalOptions="Center" VerticalOptions="Start" Clicked="OnScheduleClick" />
+                <Label Text="Be Happy" TextColor="Red" HorizontalOptions="Center" VerticalOptions="Start" />
+                <Label Text="Schedule a local notification for in 10 seconds time." TextColor="Red" HorizontalOptions="Center" VerticalOptions="Start" />
+                <Button Text="Create Notification" HorizontalOptions="Center" VerticalOptions="Start" Clicked="OnScheduleClick" />
+                
+            </StackLayout>
+            <StackLayout x:Name="webview"  BackgroundColor="Red" HeightRequest="1000" />
+        </StackLayout>
+
+</ContentPage>
