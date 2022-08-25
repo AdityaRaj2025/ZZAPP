@@ -24,7 +24,7 @@
                     Dim code As Integer
                     Dim name As String
                     Dim number As String
-                    Dim bumon As Integer = 0
+                    Dim dept As Integer = 0
 
                     code = Integer.Parse(reader.GetAttribute("Code"))
                     number = reader.GetAttribute("Number")
