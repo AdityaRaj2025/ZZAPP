@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RoomList>
+  <Room Code="0001" Number="0101" Name="ABC 1～4" ShortName="0101" Status="VACANT" Flags="000000" />
+  <Room Code="0001" Number="0101" Name="DEF 4～8" ShortName="0102" Status="VACANT" Flags="000000" />
+  <Room Code="0008" Number="0108" Name="GHI 8～10" ShortName="0108" Status="USED" Flags="000000" /> 
+</RoomList>
