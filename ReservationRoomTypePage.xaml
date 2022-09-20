@@ -22,7 +22,7 @@
                                             
                                         </dg:DataGridColumn.FormattedTitle>
                                     </dg:DataGridColumn>
-                                    <dg:DataGridColumn Title="Time" PropertyName="Status" Width="2*"/>
+                                    <!--<dg:DataGridColumn Title="{Binding kvp.Key}" PropertyName="{Binding status}" Width="2*"/>-->
 
                                 </dg:DataGrid.Columns>
 
