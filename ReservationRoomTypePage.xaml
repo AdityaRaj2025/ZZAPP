@@ -1,6 +1,6 @@
   
 <ScrollView Orientation="Both" Grid.ColumnSpan="2" Grid.RowSpan="4">
-                            <dg:DataGrid ItemsSource="{Binding RoomTypesSel}" x:Name="dataColumn" SelectionEnabled="True" SelectedItem="{Binding SelectedProfesstional}" RowHeight="70" HeaderHeight="50" 
+                            <dg:DataGrid ItemsSource="{Binding RoomTypesSel}"  SelectionEnabled="True" SelectedItem="{Binding SelectedProfesstional}" RowHeight="70" HeaderHeight="50" 
                                 BorderColor="#CCCCCC"  HeaderBackground="#E0E6F8" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" ActiveRowColor="#8899AA">
                                 <x:Arguments>
                                     <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
@@ -11,7 +11,8 @@
                                         <OnIdiom.Phone>12</OnIdiom.Phone>
                                     </OnIdiom>
                                 </dg:DataGrid.HeaderFontSize>
-                                <dg:DataGrid.Columns>
+                              
+                                <dg:DataGrid.Columns x:Name="dataColumn">
                                    
                                     <dg:DataGridColumn PropertyName="Name" Width="3*" >
                                         <dg:DataGridColumn.FormattedTitle>
