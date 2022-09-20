@@ -24,11 +24,11 @@ public ReservationRoomTypePage(ReservationViewModel model)
                 }
                 Console.WriteLine();
 
-              DataGridColumn dataGridColumn = new DataGridColumn();
-              {
-                    Title = kvp.Key;
-                    
-              }
-              dataColumn.Children.Add(dataGridColumn);
+                DataGridColumn dataGridColumn = new DataGridColumn()
+                {
+                    Title = kvp.Key
+                   
+                };
+                dataColumn.Children.Add(dataGridColumn);
             }
         }
