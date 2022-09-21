@@ -33,17 +33,26 @@ public ReservationRoomTypePage(ReservationViewModel model)
 
             }
         
-            foreach (KeyValuePair<string, string[]> kvp in myDictionary3)
-            {
-                for (int i = 0; i < kvp.Value.Length; i++)
-                {
-                    DataGridColumn dataGridColumn = new DataGridColumn()
-                    {
-                        Title = kvp.Key,
-                        PropertyName = kvp.Value[i]
-                    };
-                    dataColumn.Columns.Add(dataGridColumn);
+            //foreach (KeyValuePair<string, string[]> kvp in myDictionary3)
+            //{
 
-                }
-            }
+            //    for (int i = 0; i < kvp.Value.Length; i++)
+            //    {
+            //        DataGridColumn dataGridColumn = new DataGridColumn()
+            //        {
+            //            Title = kvp.Key,
+            //            PropertyName = kvp.Value[i],
+            //        };
+            //        dataColumn.Columns.Add(dataGridColumn);
+
+            //    }
+            //}
+            //foreach (KeyValuePair<string, string[]> kvp in myDictionary3)
+            //{
+            //    for (int i = 0; i < kvp.Value.Length; i++)
+            //    {
+            //        col1.Title = kvp.Key;
+            //        col1.PropertyName = kvp.Value[i];
+            //    }
+            //}
         }
