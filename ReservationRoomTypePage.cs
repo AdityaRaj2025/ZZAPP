@@ -56,3 +56,28 @@ public ReservationRoomTypePage(ReservationViewModel model)
             //    }
             //}
         }
+
+
+//For Service//
+
+//public Task<bool> CheckFreeRoom(CheckFree data)
+        //{
+        //    return Task.Run(() => {
+        //        try
+        //        {
+        //            Rpc.SetHeader(HEADER_CID, GlobalVar.ClientID);
+        //            var ret = Rpc.Execute(GlobalVar.WebServerAddress, TIMEOUT, API_TEST,
+        //                (XmlRpcInt)data.StoreCode, (XmlRpcString)data.MemberCode);
+
+        //            var s = ret[0] as XmlRpcStruct;
+
+        //            var code = int.Parse((XmlRpcString)s["error_code"]);
+        //            if (code == ERROR_SUCCESS)
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //        catch { }
+        //        return false;
+        //    });
+        //}
