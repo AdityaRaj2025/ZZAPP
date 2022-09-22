@@ -81,3 +81,32 @@ public ReservationRoomTypePage(ReservationViewModel model)
         //        return false;
         //    });
         //}
+
+
+foreach (KeyValuePair<string, string[]> kvp in myDictionary3)
+            {
+
+                DataGridColumn dataGridColumn = new DataGridColumn();
+                dataGridColumn.Title = kvp.Key;
+                Console.WriteLine(kvp.Key);
+                Console.WriteLine();
+
+                List<Status> statuses = new List<Status>();
+
+                foreach (string status in kvp.Value)
+                {
+
+                    statuses.Add(new Status { status = status });
+                }
+                    dataGridColumn.Width = 50;
+
+
+
+                    dataGridColumn.BindingContext = statuses;
+                    dataGridColumn.SetBinding(DataGridColumn.PropertyNameProperty, new Binding("status"));
+
+
+
+                dataGrid.Columns.Add(dataGridColumn);
+
+            }
