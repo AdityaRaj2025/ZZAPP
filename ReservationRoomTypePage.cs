@@ -1,112 +1,137 @@
-public ReservationRoomTypePage(ReservationViewModel model)
-        {
-            InitializeComponent();
+ // For editing the time portion of the start date and time
+private TimeSpan[] _StartTimeValues { get; set; }
+public string[] StartTimeNames { get; set; }
+private int _StartTimeIndex = -1;
+public int StartTimeIndex
+{
+	get { return _StartTimeIndex; }
+	set
+	{
+		_StartTimeIndex = value;
 
-            _Model = model;
-            BindingContext = _Model;
+		if (value >= 0)
+		{
+			Item.StartTime = Item.StartTime.Date.Add(_StartTimeValues[value]);
+			Item.EndTime = Item.StartTime.AddMinutes(Item.Duration);					  
+		}
 
+		FilterCourses();
 
-            //Show RoomType and Status
-            Dictionary<string, string[]> myDictionary3 = _Model.getRoomStatusData(_Model.RoomTypesSel, _Model.StartTimeNames);
-            //Console.WriteLine("Room Type arrya Size: " + _Model.RoomTypesSel.Length);
-            //Console.WriteLine("Start time arrya Size: " + _Model.StartTimeNames.Length);
-            //Console.WriteLine("Printing Room Status Dictionary");
-            //Console.WriteLine();
-            foreach (KeyValuePair<string, string[]> kvp in myDictionary3)
-            {
-                Console.WriteLine(kvp.Key);
-                Console.WriteLine();
+		OnPropertyChanged(nameof(StartTimeDisp));	
+	}
+}
+public string StartTimeDisp => StartTimeNames != null && StartTimeIndex >= 0 && StartTimeIndex < StartTimeNames.Length ? StartTimeNames[StartTimeIndex] : null;
 
-                foreach (string status in kvp.Value)
-                {
+ // For editing usage time
+private TimeSpan[] _DurationValues { get; set; }
+public string[] DurationNames { get; set; }
+private int _DurationIndex = -1;
+public int DurationIndex
+{
+	get { return _DurationIndex; }
+	set
+	{
+		_DurationIndex = value;
 
-                    Console.Write(status);
-                }
-                Console.WriteLine();
+		if (value >= 0)
+		{
+			Item.Duration = (int)_DurationValues[value].TotalMinutes;
+			Item.EndTime = Item.StartTime.AddMinutes(Item.Duration);
+		}
 
-                DataGridColumn dataGridColumn = new DataGridColumn()
-                {
-                    Title = kvp.Key
-                   
-                };
-                dataColumn.Columns.Add(dataGridColumn);
+		OnPropertyChanged(nameof(DurationDisp));
+	}   
+}
+public string DurationDisp => IsFreeTime ? 
+	DurationString(RoomCoursesSel[_RoomCourseIndex].TimeRange.GetEndDateTime(Item.StartTime) - Item.StartTime) :
+	DurationNames != null && DurationIndex >= 0 && DurationIndex < DurationNames.Length ? DurationNames[DurationIndex] : null;    
+	
+	
+// For RoomType
+public RoomType[] RoomTypesSel { get; set; }
+private int _RoomTypeIndex = -1;
+public int RoomTypeIndex
+{
+	get { return _RoomTypeIndex; }
+	set
+	{
+		_RoomTypeIndex = value;
 
-            }
-        
-            //foreach (KeyValuePair<string, string[]> kvp in myDictionary3)
-            //{
+		if (value >= 0)
+		{
+			Item.RoomType = RoomTypesSel[value].Code;
+			Item.Status = RoomTypesSel[value].RStatus;                  
+		}
+		FilterCourses();
 
-            //    for (int i = 0; i < kvp.Value.Length; i++)
-            //    {
-            //        DataGridColumn dataGridColumn = new DataGridColumn()
-            //        {
-            //            Title = kvp.Key,
-            //            PropertyName = kvp.Value[i],
-            //        };
-            //        dataColumn.Columns.Add(dataGridColumn);
+		OnPropertyChanged(nameof(RoomTypeDisp));
+	}
+}
+public string RoomTypeDisp =>
+	Config != null && RoomTypeIndex >= 0 && RoomTypeIndex < RoomTypesSel.Length ? RoomTypesSel[RoomTypeIndex].Name : null;	
+	
 
-            //    }
-            //}
-            //foreach (KeyValuePair<string, string[]> kvp in myDictionary3)
-            //{
-            //    for (int i = 0; i < kvp.Value.Length; i++)
-            //    {
-            //        col1.Title = kvp.Key;
-            //        col1.PropertyName = kvp.Value[i];
-            //    }
-            //}
-        }
+// For RoomCourse
+public RoomCourse[] RoomCoursesSel { get; set; }
+private int _RoomCourseIndex = -1;
+public int RoomCourseIndex
+{
+	get { return _RoomCourseIndex; }
+	set
+	{
+		_RoomCourseIndex = value;
 
+		Item.RoomCourse = value >= 0 ? RoomCoursesSel[value].Code : 0;
+		OnPropertyChanged(nameof(RoomCourseDisp));
 
-//For Service//
+		IsFreeTime = Item.RoomCourse > 0 && RoomCoursesSel[value].IsFreeTime;
+		FilterDurationValues();
 
-//public Task<bool> CheckFreeRoom(CheckFree data)
-        //{
-        //    return Task.Run(() => {
-        //        try
-        //        {
-        //            Rpc.SetHeader(HEADER_CID, GlobalVar.ClientID);
-        //            var ret = Rpc.Execute(GlobalVar.WebServerAddress, TIMEOUT, API_TEST,
-        //                (XmlRpcInt)data.StoreCode, (XmlRpcString)data.MemberCode);
+		OnPropertyChanged(nameof(DurationDisp));
+	}
+}
+public string RoomCourseDisp => 
+	Config != null && RoomCourseIndex >= 0 && RoomCourseIndex < RoomCoursesSel.Length ? RoomCoursesSel[RoomCourseIndex].Name : null;
+public bool IsFreeTime;
 
-        //            var s = ret[0] as XmlRpcStruct;
+	
 
-        //            var code = int.Parse((XmlRpcString)s["error_code"]);
-        //            if (code == ERROR_SUCCESS)
-        //            {
-        //                return true;
-        //            }
-        //        }
-        //        catch { }
-        //        return false;
-        //    });
-        //}
+//Filter Courses
+private void FilterCourses()
+{
+	var current = RoomCoursesSel != null && RoomCourseIndex >= 0 && RoomCourseIndex < RoomCoursesSel.Length ? RoomCoursesSel[RoomCourseIndex] : null;
+	var newidx = -1;
+	var filtered = new List<RoomCourse>();
 
+	foreach (var rc in Config.RoomCourses)
+	{
+		// Is the course selectable for the room type being selected?
+		if (_RoomTypeIndex < 0 || !RoomTypesSel[_RoomTypeIndex].RoomCourses.Contains(rc.Code))
+		{
+			continue;
+		}
 
-foreach (KeyValuePair<string, string[]> kvp in myDictionary3)
-            {
+		// Does the start time fall within the valid time?
+		if (_StartTimeIndex < 0 || !rc.TimeRange.Contains(_StartTimeValues[_StartTimeIndex]) || rc.TimeRange.EndTime == _StartTimeValues[_StartTimeIndex])
+		{
+			continue;
+		}
 
-                DataGridColumn dataGridColumn = new DataGridColumn();
-                dataGridColumn.Title = kvp.Key;
-                Console.WriteLine(kvp.Key);
-                Console.WriteLine();
+		filtered.Add(rc);
+		if (rc == current)
+		{
+			newidx = filtered.Count - 1;
+		}
+	}
 
-                List<Status> statuses = new List<Status>();
+	// // Automatically select if only one course is available for selection
+	if (filtered.Count == 1)
+	{
+		newidx = 0;
+	}
 
-                foreach (string status in kvp.Value)
-                {
+	RoomCoursesSel = filtered.ToArray();
+	OnPropertyChanged(nameof(RoomCoursesSel));
 
-                    statuses.Add(new Status { status = status });
-                }
-                    dataGridColumn.Width = 50;
-
-
-
-                    dataGridColumn.BindingContext = statuses;
-                    dataGridColumn.SetBinding(DataGridColumn.PropertyNameProperty, new Binding("status"));
-
-
-
-                dataGrid.Columns.Add(dataGridColumn);
-
-            }
+	RoomCourseIndex = newidx;            
+}
